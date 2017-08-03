@@ -70,15 +70,14 @@ php artisan make:model Image -m
 
 ## xxxx_create_images_table
 
-添付画像テーブルです。`target_id`は画像が添付されている投稿IDまたはコメントID、`target_type`は画像が添付されているモデルのクラス名（`App\Post`または`App\Comment`）となります。このような形式にすることでポリモーフィックリレーションを設定しやすくしています。`filename`は画像のファイル名です。
+添付画像テーブルです。`$table->morphs('target');`によって`target_id`と`target_type`の2カラムを定義しています。`target_id`は画像が添付されている投稿IDまたはコメントID、`target_type`は画像が添付されているモデルのクラス名（`App\Post`または`App\Comment`）となります。このような形式にすることでポリモーフィックリレーションを設定しやすくしています。`filename`は画像のファイル名です。
 
 ```php
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('target_id');
-            $table->string('target_type');
+            $table->morphs('target');
             $table->string('filename');
             $table->timestamps();
         });
