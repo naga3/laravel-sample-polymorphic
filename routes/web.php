@@ -1,6 +1,6 @@
 <?php
 Route::get('/', function () {
-    return view('home', ['posts' => App\Post::orderBy('id', 'desc')->get()]);
+    return view('home', ['posts' => App\Post::latest('id')->get()]);
 });
 
 // Post
